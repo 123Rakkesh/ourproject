@@ -35,7 +35,7 @@
             <name>emailBody</name>
             <value>
                 <inputConfiguratorMode>Custom</inputConfiguratorMode>
-                <stringValue>&lt;p&gt;Welcome to one algorithm, this is Amit Pitta&lt;/p&gt;</stringValue>
+                <stringValue>&lt;p&gt;Welcome to one algorithm, hope you are doing well. This is Rakkesh perumal from one algorithm. This is to inform you that the offer has been approved.&lt;/p&gt;</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
