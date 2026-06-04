@@ -20,28 +20,38 @@
             </value>
         </inputParameters>
         <inputParameters>
-            <name>composeEmailContent</name>
+            <name>useEmailTemplate</name>
             <value>
                 <stringValue>True</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
-            <name>emailSubject</name>
+            <name>emailTemplateId</name>
             <value>
-                <stringValue>one algorithm email</stringValue>
+                <inputConfiguratorMode>Custom</inputConfiguratorMode>
+                <stringValue>00Xg5000005TL7pEAG</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
-            <name>emailBody</name>
+            <name>attachmentId</name>
             <value>
                 <inputConfiguratorMode>Custom</inputConfiguratorMode>
-                <stringValue>&lt;p&gt;Welcome to one algorithm, hope you are doing well. This is Rakkesh perumal from one algorithm. This is to inform you that the offer has been approved.&lt;/p&gt;</stringValue>
+                <stringValue>068g5000003K28nAAC</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
             <name>recipientId</name>
             <value>
                 <elementReference>Loop_Through_Leads.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>relatedRecordId</name>
+        </inputParameters>
+        <inputParameters>
+            <name>logEmailOnSend</name>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </inputParameters>
         <nameSegment>emailSimple</nameSegment>
@@ -56,7 +66,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignmentItems>
-            <assignToReference>Loop_Through_Leads.Is_Email_Sent__c</assignToReference>
+            <assignToReference>Loop_Through_Leads.is_Email_Sent__c</assignToReference>
             <operator>Assign</operator>
             <value>
                 <booleanValue>true</booleanValue>
@@ -73,7 +83,37 @@
             <targetReference>Loop_Through_Leads</targetReference>
         </connector>
     </assignments>
+    <decisions>
+        <name>is_holiday</name>
+        <label>is holiday</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Get_Oldest_Unsent_Leads</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>holiday</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>IsWeekend</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>holiday</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
+    <formulas>
+        <name>IsWeekend</name>
+        <dataType>Boolean</dataType>
+        <expression>OR(
+  WEEKDAY(TODAY()) = 1,
+  WEEKDAY(TODAY()) = 7
+)</expression>
+    </formulas>
     <interviewLabel>lead by ramesh {!$Flow.CurrentDateTime}</interviewLabel>
     <label>lead by ramesh</label>
     <loops>
@@ -120,7 +160,7 @@
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>Is_Email_Sent__c</field>
+            <field>is_Email_Sent__c</field>
             <operator>EqualTo</operator>
             <value>
                 <booleanValue>false</booleanValue>
@@ -139,8 +179,8 @@
         </limit>
         <object>Lead</object>
         <queriedFields>Id</queriedFields>
+        <queriedFields>is_Email_Sent__c</queriedFields>
         <queriedFields>Email</queriedFields>
-        <queriedFields>Is_Email_Sent__c</queriedFields>
         <sortField>CreatedDate</sortField>
         <sortOrder>Asc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -156,14 +196,14 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Get_Oldest_Unsent_Leads</targetReference>
+            <targetReference>is_holiday</targetReference>
         </connector>
         <schedule>
             <dayOfMonthToRun>0</dayOfMonthToRun>
             <frequency>Daily</frequency>
             <frequencyNumber>0</frequencyNumber>
-            <startDate>2026-05-18</startDate>
-            <startTime>00:23:00.000Z</startTime>
+            <startDate>2026-06-03</startDate>
+            <startTime>11:45:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>
